@@ -84,10 +84,13 @@ class AboutHandler(webapp2.RequestHandler):
       text = 'Hello, %s!' % "Dudeman"
 
 
-      # print calendarList.getCalendarList(service, http)
-      # print calendarList.getCalendarNames(service, http)
-      print events.insert(service, http)
+      # print calendarList.list(service, http)
+      # print calendarList.listNames(service, http)
+      # print events.insert(service, http)
 
+      # calendars.insert(service, http, "Done")
+      # calendarList.insert(service, http, 'ek6rosdqsntgg12i1lhbghqu1g@group.calendar.google.com')
+      calendars.createDoneCalendar(service, http)
 
       # text += '<br><br>%s' % response
 

@@ -13,8 +13,22 @@ def list(service, http):
 
 ### Return a list of the Google Calendar names
 def listNames(service, http):
-	calendar_list = getCalendarList(service, http)
+	calendar_list = list(service, http)
 	calendar_list_names = []
 	for calendar_list_entry in calendar_list:
 		calendar_list_names.append(calendar_list_entry['summary'])
 	return calendar_list_names
+
+### Create a new calendar
+def insert(service, http, calendarId):
+
+	calendar_list_entry = {
+		'id': calendarId,
+		# 'colorId': "15"
+		'backgroundColor': '#9fc6e7',
+		'foregroundColor': '#000000',
+		'selected': True
+	}
+
+	created_calendar_list_entry = service.calendarList().insert(body=calendar_list_entry, colorRgbFormat=True).execute(http=http)
+	return created_calendar_list_entry['summary']
