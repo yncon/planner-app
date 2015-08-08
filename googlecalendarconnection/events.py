@@ -29,3 +29,13 @@ def insert(service, http):
 
   event = service.events().insert(calendarId='yannick.d.cohen@gmail.com', body=event).execute(http=http)
   print 'Event created: %s' % (event.get('htmlLink'))
+  return event['id']
+
+def get(service, http, eventId):
+  event = service.events().get(calendarId='yannick.d.cohen@gmail.com', eventId=eventId).execute(http=http)
+
+  print event['summary']
+  return event
+
+def delete(service, http, eventId):
+  service.events().delete(calendarId='yannick.d.cohen@gmail.com', eventId=eventId).execute(http=http)

@@ -79,8 +79,11 @@ class AboutHandler(webapp2.RequestHandler):
   def get(self):
     try:
       http = decorator.http()
+
       # request = service.events().list(calendarId='yannick.d.cohen@gmail.com')
       # response = request.execute(http=http)
+      # text = '<br><br>%s' % response
+
       text = 'Hello, %s!' % "Dudeman"
 
 
@@ -90,9 +93,12 @@ class AboutHandler(webapp2.RequestHandler):
 
       # calendars.insert(service, http, "Done")
       # calendarList.insert(service, http, 'ek6rosdqsntgg12i1lhbghqu1g@group.calendar.google.com')
-      calendars.createDoneCalendar(service, http)
+      # calendars.createDoneCalendar(service, http)
+      eventId = '4p6hrjb9bidp3cimh10ha4jdus'
 
-      # text += '<br><br>%s' % response
+      # events.get(service, http, eventId)
+      events.delete(service, http, eventId)
+      
 
       template = JINJA_ENVIRONMENT.get_template('welcome.html')
       self.response.write(template.render({'text': text }))
