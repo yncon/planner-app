@@ -1,3 +1,5 @@
+import calendarList
+
 def insert(service, http):
   event = {
     'summary': 'Google I/O 2015',
@@ -49,7 +51,17 @@ def update(service, http, eventId):
 
   updated_event = service.events().update(calendarId='yannick.d.cohen@gmail.com', eventId=eventId, body=event).execute(http=http)
 
-  print updated_event['updated']
+  print updated_event['summary']
   return updated_event
+
+def move(service, http, eventId, fromCalendarId, toCalendarId):
+  toCalendarId = 'ju6fpnhnsed5t2fbof4o5bshj4@group.calendar.google.com'
+
+  updated_event = service.events().move(calendarId=fromCalendarId, eventId=eventId, destination=toCalendarId).execute(http=http)
+
+  print updated_event['summary']
+  return updated_event
+
+
 
 

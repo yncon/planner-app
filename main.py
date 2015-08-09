@@ -98,7 +98,9 @@ class AboutHandler(webapp2.RequestHandler):
       # events.insert(service, http)
       # events.get(service, http, eventId)
       # events.delete(service, http, eventId)
-      events.update(service, http, "154o0rb96o93bd4f7j11eh7d24")
+      # events.update(service, http, eventId)
+      eventId = "154o0rb96o93bd4f7j11eh7d24"
+      events.move(service, http, eventId, "yannick.d.cohen@gmail.com", "Done")
       
 
       template = JINJA_ENVIRONMENT.get_template('welcome.html')
