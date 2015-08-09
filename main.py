@@ -94,10 +94,11 @@ class AboutHandler(webapp2.RequestHandler):
       # calendars.insert(service, http, "Done")
       # calendarList.insert(service, http, 'ek6rosdqsntgg12i1lhbghqu1g@group.calendar.google.com')
       # calendars.createDoneCalendar(service, http)
-      eventId = '4p6hrjb9bidp3cimh10ha4jdus'
 
+      # events.insert(service, http)
       # events.get(service, http, eventId)
-      events.delete(service, http, eventId)
+      # events.delete(service, http, eventId)
+      events.update(service, http, "154o0rb96o93bd4f7j11eh7d24")
       
 
       template = JINJA_ENVIRONMENT.get_template('welcome.html')
