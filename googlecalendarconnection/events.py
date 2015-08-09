@@ -1,4 +1,5 @@
 import calendarList
+import calendars
 
 def insert(service, http):
   event = {
@@ -37,7 +38,7 @@ def insert(service, http):
 def get(service, http, eventId):
   event = service.events().get(calendarId='yannick.d.cohen@gmail.com', eventId=eventId).execute(http=http)
 
-  print event['summary']
+  print event
   return event
 
 def delete(service, http, eventId):
@@ -46,22 +47,27 @@ def delete(service, http, eventId):
 def update(service, http, eventId):
   event = get(service, http, eventId)
 
-  event['start']['dateTime'] = '2015-08-06T10:00:00-04:00'
-  event['end']['dateTime'] = '2015-08-06T11:00:00-04:00'
+  # event['start']['dateTime'] = '2015-08-06T10:00:00-04:00'
+  # event['end']['dateTime'] = '2015-08-06T11:00:00-04:00'
+  event['status'] = 'confirmed'
 
   updated_event = service.events().update(calendarId='yannick.d.cohen@gmail.com', eventId=eventId, body=event).execute(http=http)
 
-  print updated_event['summary']
+  print updated_event
   return updated_event
 
 def move(service, http, eventId, fromCalendarId, toCalendarId):
-  toCalendarId = 'ju6fpnhnsed5t2fbof4o5bshj4@group.calendar.google.com'
+  # toCalendarId = 'ju6fpnhnsed5t2fbof4o5bshj4@group.calendar.google.com'
 
   updated_event = service.events().move(calendarId=fromCalendarId, eventId=eventId, destination=toCalendarId).execute(http=http)
 
   print updated_event['summary']
   return updated_event
 
-
+def moveToDone(service, http, eventId):
+  doneCalendar = calendarList.getDoneCalendar(service, http)
+  if not doneCalendar:
+    doneCalendar = calendars.createDoneCalendar(service, http)
+  return move(service, http, eventId, 'yannick.d.cohen@gmail.com', doneCalendar['id'])
 
 

@@ -32,3 +32,9 @@ def insert(service, http, calendarId):
 
 	created_calendar_list_entry = service.calendarList().insert(body=calendar_list_entry, colorRgbFormat=True).execute(http=http)
 	return created_calendar_list_entry['summary']
+
+def getDoneCalendar(service, http):
+	calendar_list = list(service, http)
+	for calendar in calendar_list:
+		if calendar['summary'].lower() == "done":
+			return calendar
