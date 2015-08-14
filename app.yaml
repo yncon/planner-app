@@ -9,6 +9,14 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /app/scripts
+  static_dir: app/scripts
+  expiration: "1d 0m"
+
+- url: /app/partials
+  static_dir: app/partials
+  expiration: "1d 0m"
+
 - url: .*
   script: main.app
 

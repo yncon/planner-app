@@ -35,7 +35,6 @@ href="https://code.google.com/apis/console">APIs Console</a>.
 </p>
 """ % CLIENT_SECRETS
 
-# http = httplib2.Http(memcache)
 service = build('calendar', 'v3')
 decorator = appengine.oauth2decorator_from_clientsecrets(
     CLIENT_SECRETS,
@@ -43,34 +42,37 @@ decorator = appengine.oauth2decorator_from_clientsecrets(
     message=MISSING_CLIENT_SECRETS_MESSAGE)
 
 
+template_directory = os.path.join(os.path.dirname(__file__), 'app')
+jinja_environment = jinja2.Environment(loader = jinja2.FileSystemLoader(template_directory),
+                                       autoescape = True)
 
-# decorator = OAuth2Decorator(
-#   client_id='494667278516-nlhglp2nq4lm9liftiucbt4sc7rehqo8.apps.googleusercontent.com',
-#   client_secret='o55rCc6zRPxoSJgkYO72LAlk',
-#   scope='https://www.googleapis.com/auth/calendar',
-#   callback_path='/hi')
+class Helper(webapp2.RequestHandler):
+    def write(self, *a, **kw):
+        self.response.out.write(*a, **kw)
+        
+    def render_str(self, template, **params):
+        t = jinja_environment.get_template(template)
+        return t.render(params)
+    
+    def render(self, template, **kw):
+        self.write(self.render_str(template, **kw))
+
+class ActionsHandler(Helper):
+    def get(self):
+        self.render('actions.html')
 
 
+class MainHandler(Helper):
 
-class MainHandler(webapp.RequestHandler):
-
-  	@decorator.oauth_aware
-  	def get(self):
-  		variables = {
-  			'url': decorator.authorize_url(),
-			'has_credentials': decorator.has_credentials()
-			}
-		template = JINJA_ENVIRONMENT.get_template('grant.html')
-		self.response.write(template.render(variables))
-
-  # @decorator.oauth_required
-  # def get(self):
-  #   # Get the authorized Http object created by the decorator.
-  #   http = decorator.http()
-  #   # Call the service using the authorized Http object.
-  #   request = service.events().list(calendarId='primary')
-  #   response = request.execute(http=http)
-  #   self.response.write(response)
+    @decorator.oauth_aware
+    def get(self):
+        variables = {
+            'url': decorator.authorize_url(),
+            'has_credentials': decorator.has_credentials()
+            }
+        # template = JINJA_ENVIRONMENT.get_template('grant.html')
+        # self.response.write(template.render(variables))
+        self.render('index.html')
 
 
 class AboutHandler(webapp2.RequestHandler):
@@ -112,10 +114,6 @@ class AboutHandler(webapp2.RequestHandler):
     except client.AccessTokenRefreshError:
       self.redirect('/')
 
-
-# class MainHandler(webapp2.RequestHandler):
-#     def get(self):
-#         self.response.write('Hello world!')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
