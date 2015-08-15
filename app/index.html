@@ -1,19 +1,34 @@
 <!doctype html>
 <html ng-app="kumbaya">
 <head>
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!--App Styles-->
+    <link rel="stylesheet" href="app/styles/testcss.css">
+
 </head>
-<body>
+<body class="kby-main-background-color">
 
-<ui-view></ui-view>
+<!--jQuery-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-<script src="app/scripts/vendor/angular/angular.js"></script>
-<script src="app/scripts/vendor/angular/angular-route.js"></script>
+<!--Bootstrap-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!--Angular-->
+<script src="app/vendor/angular/angular.js"></script>
+<script src="app/vendor/angular/angular-route.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+
+<!--Main-->
 <script src="app/scripts/app.js"></script>
 
 <!--Controllers-->
 <script src="app/scripts/controllers/HomeController.js"></script>
 
+
+<ui-view class="kby-screen-wrapper"></ui-view>
 
 </body>
 

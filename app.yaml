@@ -17,6 +17,14 @@ handlers:
   static_dir: app/partials
   expiration: "1d 0m"
 
+- url: /app/styles
+  static_dir: app/styles
+  expiration: "1d 0m"
+
+- url: /app/vendor
+  static_dir: app/vendor
+  expiration: "1d 0m"
+
 - url: .*
   script: main.app
 
